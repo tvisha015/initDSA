@@ -5,7 +5,6 @@ import jwt from "jsonwebtoken";
 
 export const register = async (req, res)=>{
     const {email, password, name} = req.body;
-    console.log("1");
     try {
         const existinguser = await db.user.findUnique({
             where:{
@@ -17,8 +16,7 @@ export const register = async (req, res)=>{
                 error:"User alreay exists"
             })
         }
-        console.log("2");
-
+        
         const hashedPassword = await bycrypt.hash(password,10);
         
         const newUser = await db.user.create({
@@ -29,7 +27,6 @@ export const register = async (req, res)=>{
                 role:UserRole.USER
             }
         })
-        console.log("3");
 
         const token = jwt.sign({id:newUser.id}, process.env.JWT_SECRET, {expiresIn:"7d"})
         
@@ -39,7 +36,6 @@ export const register = async (req, res)=>{
             secure:process.env.NODE_ENV !== "development",
             maxAge:1000*60*60*24*7
         })
-        console.log("4");
 
         res.status(201).json({
             message:"User created successfully",
