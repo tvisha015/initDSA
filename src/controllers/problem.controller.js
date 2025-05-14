@@ -74,7 +74,32 @@ export const createProblem = async(req,res) =>{
     }
 }
 
-export const getAllProblems = async(req, res)=>{}
+export const getAllProblems = async(req, res)=>{
+    try {
+        const problems = await db.problem.findMany();
+
+        if(!problems){
+            res.status(404).json({
+                success:false,
+                message:"No problem found"
+            })
+        }
+
+        res.status(200).json({
+            success:true,
+            message:"Problem featched successfully",
+            problems:problems,
+        })
+
+    } catch (error) {
+        console.log(error);
+        res.status(200).json({
+            success:false,
+            message:"Error while featching problem"
+        })
+    }
+    
+}
 
 export const getProblemById = async(req, res)=>{}
 
