@@ -93,7 +93,7 @@ export const getAllProblems = async(req, res)=>{
 
     } catch (error) {
         console.log(error);
-        res.status(200).json({
+        res.status(500).json({
             success:false,
             message:"Error while featching problem"
         })
@@ -101,7 +101,37 @@ export const getAllProblems = async(req, res)=>{
     
 }
 
-export const getProblemById = async(req, res)=>{}
+export const getProblemById = async(req, res)=>{
+    try {
+
+        const {id} = req.params;
+        
+        const problems = await db.problem.findUnique({
+            where:{
+                id
+            }
+        })
+
+        if(!problems){
+            res.status(404).json({
+                success:false,
+                message:"Problem not found"
+            })
+        }
+
+        res.status(200).json({
+            success:true,
+            message:"Problem featched successfully",
+            problem:problems
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            success:false,
+            message:"Error while featching problem by ID",
+        })
+    }
+}
 
 export const updateProblem = async(req, res)=>{}
 
