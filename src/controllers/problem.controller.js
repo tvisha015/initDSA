@@ -56,7 +56,7 @@ export const createProblem = async(req,res) =>{
             // save problem to db
             const newProblem = await db.problem.create({
                 data:{
-                    title, description, difficulty, tags, examples, constraints, testcases, codeSnippets, referenceSolution, userid:req.user.id
+                    title, description, difficulty, tags, examples, constraints, testcases, codeSnippets, referenceSolution, userId:req.user.id
                 }
             })
 
