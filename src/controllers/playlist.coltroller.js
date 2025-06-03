@@ -126,6 +126,27 @@ export const addProblemToPlaylist = async(req, res)=>{
     }
 }
 
-export const deletePlaylist = async(req, res)=>{}
+export const deletePlaylist = async(req, res)=>{
+    const {playlistId} = req.params;
+
+    try {
+        const deletedPlaylist = await db.playlist.delete({
+            where:{
+                id:playlistId
+            }
+        });
+        res.status(200).json({
+            success:true,
+            message:"Playlist deleted successfully",
+            deletedPlaylist
+        })
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success:false,
+            error:"Falied to delete playlist",
+        })
+    }
+}
 
 export const removeProblemFromPlaylist = async(req, res)=>{}
