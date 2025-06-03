@@ -94,7 +94,37 @@ export const getPlaylistDetails = async(req, res)=>{
 
 }
 
-export const addProblemToPlaylist = async(req, res)=>{}
+export const addProblemToPlaylist = async(req, res)=>{
+    const {playlistId} = req.params;
+    const {problemIds} = req.body;
+
+    try {
+        if(!Array.isArray(problemIds) || problemIds.length === 0){
+            return res.status(400).json({
+                error:"Invaid of missing problemsId"
+            })
+        }
+
+        const problemsInPlaylist = await db.problemsInPlaylist.createMany({
+            data:problemIds.map((problemId)=>({
+                playlistId,
+                problemId
+            }))
+        })
+
+        res.status(201).json({
+            success:true,
+            message:"Problems added in playlist successfully",
+            problemsInPlaylist
+        })
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success:false,
+            error:"Falied to add problem in playlist",
+        })
+    }
+}
 
 export const deletePlaylist = async(req, res)=>{}
 
