@@ -12,6 +12,7 @@ import {
   Lock,
   Mail,
 } from "lucide-react";
+import { useAuthStore } from "../store/useAuthStore.js";
 
 // ✅ Zod schema
 const loginSchema = z.object({
@@ -20,6 +21,7 @@ const loginSchema = z.object({
 });
 
 export const LoginPage = () => {
+  const {isLoggingIn, login} = useAuthStore();
   const [showPassword, setShowPassword] = useState(false);
  
   const {
@@ -31,13 +33,12 @@ export const LoginPage = () => {
   });
 
   const onSubmit = async (data) => {
-    console.log(data)
-    // try {
-    //   await login(data); // your auth logic here
-    //   console.log("Login Data:", data);
-    // } catch (error) {
-    //   console.error("Login failed:", error);
-    // } 
+    try {
+      await login(data); // your auth logic here
+      console.log("Login Data:", data);
+    } catch (error) {
+      console.error("Login failed:", error);
+    } 
   };
 
   return (
@@ -119,8 +120,16 @@ export const LoginPage = () => {
             <button
               type="submit"
               className="btn btn-primary w-full"
+              disabled={isLoggingIn}
             >
-              Login
+            {isLoggingIn ? (
+              <>
+                <Loader2 className="h-5 w-5 animate-spin" />
+                Loading...
+              </>
+            ) : (
+              "Sign in"
+            )}
             </button>
           </form>
 
