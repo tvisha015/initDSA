@@ -1,3 +1,6 @@
+import swaggerUIPath from "swagger-ui-express";
+import swaggerjsonFilePath from "./docs/swagger.json" with { type: "json" };
+
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
@@ -11,6 +14,7 @@ import playlistRoutes from "./routes/playlist.routes.js";
 dotenv.config();
 
 const app = express();
+app.use("/api-docs", swaggerUIPath.serve, swaggerUIPath.setup(swaggerjsonFilePath));
 
 app.use(express.json());
 app.use(cookieParser());

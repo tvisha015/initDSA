@@ -6,7 +6,7 @@ import bcrypt from "bcryptjs";
 
 export const register = async (req, res)=>{
     const {email, password, name} = req.body;
-    try {
+    try { 
         const existinguser = await db.user.findUnique({
             where:{
                 email
