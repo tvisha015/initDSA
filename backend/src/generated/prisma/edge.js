@@ -234,7 +234,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\rmcab\\Desktop\\TheCodeLab\\backend\\src\\generated\\prisma",
+      "value": "C:\\Users\\rmcab\\Desktop\\init\\backend\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {

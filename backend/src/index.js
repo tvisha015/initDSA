@@ -26,7 +26,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.get("/",(req,res)=>{
-    res.send("Welcome to TheCodeLab");
+    res.send("Welcome to initDSA");
 })
 app.use("/api/v1/auth",authRoutes);
 app.use("/api/V1/problems", problemRoutes);

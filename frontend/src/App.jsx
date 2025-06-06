@@ -7,6 +7,7 @@ import { LoginPage } from './page/LoginPage.jsx';
 import { SignUpPage } from './page/SignUpPage.jsx';
 import { useAuthStore } from './store/useAuthStore.js';
 import { Loader } from 'lucide-react';
+import Profile from './page/Profile.jsx'
 import Layout from './layout/Layout.jsx';
 import AdminRoute from './components/AdminRoute.jsx';
 import AddProblem from './page/AddProblem.jsx';
@@ -43,6 +44,11 @@ const App = () => {
         <Route
         path='/signUp'
         element={!authUser ? <SignUpPage/> : <Navigate to={"/"}/>}
+        />
+
+        <Route
+          path="/profile"
+          element={authUser ? <Profile /> : <Navigate to="/login" replace />}
         />
 
         <Route
