@@ -30,7 +30,7 @@ export const useSubmissionStore = create((set, get) => ({
         `/submission/get-submission/${problemId}`
       );
 
-      set({ submission: res.data.submission });
+      set({ submission: res.data.submissions });
 
     } catch (error) {
       console.log("Error getting submission for problem", error);
