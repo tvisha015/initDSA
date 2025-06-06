@@ -18,8 +18,9 @@ const app = express();
 app.use("/api-docs", swaggerUIPath.serve, swaggerUIPath.setup(swaggerjsonFilePath));
 app.use(
     cors({
-        origin:"http://localhost:5173",
-        credentials:true
+        origin:["http://localhost:5173","https://init-dsa.vercel.app","https://initdsa.in","http://initdsa.in"],
+        credentials:true,
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
     })
 )
 app.use(express.json());
