@@ -44,7 +44,7 @@ export const getAllListDetails = async(req, res)=>{
         })
         res.status(200).json({
             success:true,
-            message:"Playlist fetched successfully",
+            message:"Playlists fetched successfully",
             playlists
         })
     } catch (error) {

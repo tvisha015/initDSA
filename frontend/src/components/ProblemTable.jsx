@@ -3,22 +3,22 @@ import { useAuthStore } from "../store/useAuthStore";
 import { Link } from "react-router-dom";
 import { Bookmark, PencilIcon, Trash, TrashIcon, Plus, Loader2 } from "lucide-react";
 import {useAction} from "../store/useAction.js";
-// import AddToPlaylistModal from "./AddToPlaylist";
-// import CreatePlaylistModal from "./CreatePlaylistModal";
-// import { usePlaylistStore } from "../store/usePlaylistStore";
+import AddToPlaylistModal from "./AddToPlaylist.jsx";
+import CreatePlaylistModal from "./CreatePlaylistModal.jsx";
+import { usePlaylistStore } from "../store/usePlaylistStore.js";
 
 
 const ProblemsTable = ({ problems }) => {
   const { authUser } = useAuthStore();
   const { isDeletingProblem, onDeleteProblem } = useAction();
-//   const { createPlaylist } = usePlaylistStore();
+  const { createPlaylist } = usePlaylistStore();
   const [search, setSearch] = useState("");
   const [difficulty, setDifficulty] = useState("ALL");
   const [selectedTag, setSelectedTag] = useState("ALL");
   const [currentPage, setCurrentPage] = useState(1);
-//   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-//   const [isAddToPlaylistModalOpen, setIsAddToPlaylistModalOpen] = useState(false);
-//   const [selectedProblemId, setSelectedProblemId] = useState(null);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isAddToPlaylistModalOpen, setIsAddToPlaylistModalOpen] = useState(false);
+  const [selectedProblemId, setSelectedProblemId] = useState(null);
 
   // Extract all unique tags from problems
   const allTags = useMemo(() => {
@@ -59,14 +59,14 @@ const ProblemsTable = ({ problems }) => {
     onDeleteProblem(id);
   };
 
-  // const handleCreatePlaylist = async (data) => {
-  //   await createPlaylist(data);
-  // };
+  const handleCreatePlaylist = async (data) => {
+    await createPlaylist(data);
+  };
 
-  // const handleAddToPlaylist = (problemId) => {
-  //   setSelectedProblemId(problemId);
-  //   setIsAddToPlaylistModalOpen(true);
-  // };
+  const handleAddToPlaylist = (problemId) => {
+    setSelectedProblemId(problemId);
+    setIsAddToPlaylistModalOpen(true);
+  };
 
   return (
     <div className="w-full max-w-6xl mx-auto mt-10">
@@ -238,17 +238,17 @@ const ProblemsTable = ({ problems }) => {
       </div>
 
       {/* Modals */}
-      {/* <CreatePlaylistModal
+      <CreatePlaylistModal
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
         onSubmit={handleCreatePlaylist}
-      /> */}
+      />
       
-      {/* <AddToPlaylistModal
+      <AddToPlaylistModal
         isOpen={isAddToPlaylistModalOpen}
         onClose={() => setIsAddToPlaylistModalOpen(false)}
         problemId={selectedProblemId}
-      /> */}
+      />
     </div>
   );
 };
