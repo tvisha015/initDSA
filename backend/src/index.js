@@ -16,12 +16,25 @@ dotenv.config();
 
 const app = express();
 app.use("/api-docs", swaggerUIPath.serve, swaggerUIPath.setup(swaggerjsonFilePath));
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://initdsa.in",
+  "https://www.initdsa.in",
+  "https://init-dsa.vercel.app",
+];
 app.use(
-    cors({
-        origin:"*",
-        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
-    })
-)
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 
