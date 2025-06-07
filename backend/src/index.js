@@ -23,6 +23,7 @@ app.use("/api-docs", swaggerUIPath.serve, swaggerUIPath.setup(swaggerjsonFilePat
 //   "https://init-dsa.vercel.app",
 // ];
  
+app.use(cors());
 // app.use(
 //   cors({
 //     origin: function (origin, callback) {
@@ -36,11 +37,11 @@ app.use("/api-docs", swaggerUIPath.serve, swaggerUIPath.setup(swaggerjsonFilePat
 //     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 //   })
 // );
-app.use((req, res, next)=>{
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET', 'POST', 'PUT', 'DELETE', 'OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-})
+// app.use((req, res, next)=>{
+//     res.header('Access-Control-Allow-Origin', '*');
+//     res.header('Access-Control-Allow-Methods', 'GET', 'POST', 'PUT', 'DELETE', 'OPTIONS');
+//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+// })
 app.use(express.json());
 app.use(cookieParser());
 
