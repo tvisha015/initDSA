@@ -105,11 +105,11 @@ const Profile = () => {
      
       </div>
       <div>
-        <ProfileSubmission/>
+        {/* <ProfileSubmission/> */}
           
-        <ProblemSolvedByUser/>
+        {/* <ProblemSolvedByUser/> */}
 
-        <PlaylistProfile/>
+        {/* <PlaylistProfile/> */}
       </div>
       
       {/* PLaylist created by the user and their actions */}
