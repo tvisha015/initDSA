@@ -68,18 +68,6 @@ const ProblemPage = () => {
     setCode(problem.codeSnippets?.[lang] || "");
   };
 
-  const handleRunCode = (e) => {
-    e.preventDefault();
-    try {
-      const language_id = getLanguageId(selectedLanguage);
-      const stdin = problem.testCases.map((tc) => tc.input);
-      const expected_outputs = problem.testCases.map((tc) => tc.output);
-      executeCode(code, language_id, stdin, expected_outputs, id);
-    } catch (error) {
-      console.log("Error executing code", error);
-    }
-  };
-
   if (isProblemLoading || !problem) {
     return (
       <div className="flex items-center justify-center h-screen bg-base-200">
@@ -169,6 +157,18 @@ const ProblemPage = () => {
     }
   };
 
+  const handleRunCode = (e) => {
+    e.preventDefault();
+    try {
+      const language_id = getLanguageId(selectedLanguage);
+      const stdin = problem.testcases.map((tc) => tc.input);
+      console.log("handle run code")
+      const expected_outputs = problem.testcases.map((tc) => tc.output);
+      executeCode(code, language_id, stdin, expected_outputs, id);
+    } catch (error) {
+      console.log("Error executing code", error);
+    }
+  };
   return (
     <div className="min-h-screen bg-gradient-to-br from-base-300 to-base-200">
       <nav className="navbar bg-base-100 shadow-lg px-4">

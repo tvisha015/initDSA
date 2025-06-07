@@ -1,4 +1,10 @@
 import axios from "axios";
+
+const judge0ApiKey = process.env.JUDGE0_API_KEY;
+const headersJudge0 = {
+  Authorization: `Bearer ${judge0ApiKey}`,
+};
+
 export const getJudge0LanguageId = (Language)=>{
     const languageMap = {
         "PYTHON":71,
@@ -16,7 +22,8 @@ export const pollBatchResults = async (tokens)=>{
             params:{
                 tokens:tokens.join(","),
                 base64_encoded:false,
-            }
+            },
+            headersJudge0
         })
 
         const results = data.submissions;
@@ -33,8 +40,14 @@ export const pollBatchResults = async (tokens)=>{
 
 export const submitBatch = async(submissions)=>{
     try {
-        const {data} = await axios.post(`${process.env.JUDGE0_API_URL}/submissions/batch?base64_encoded=false`,{submissions})
-     
+        // const {data} = await axios.post(`${process.env.JUDGE0_API_URL}/submissions/batch?base64_encoded=false`,{submissions})
+        const { data } = await axios.post(
+            `${process.env.JUDGE0_API_URL}/submissions/batch?base64_encoded=false`,
+            {
+            submissions,
+            headersJudge0,
+            }
+        );
         console.log("Submission Results : ",data)
 
         return data

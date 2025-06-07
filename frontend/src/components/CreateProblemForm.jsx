@@ -570,6 +570,7 @@ const navigation = useNavigate();
     try {
       // stringify the data
       setIsLoading(true);
+      console.log("hello")
       const res = await axiosInstance.post("/problems/create-problem", value);
       console.log(res.data);
       toast.success(res.data.message || "Problem created successfully!");

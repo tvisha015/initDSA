@@ -30,7 +30,6 @@ export const createProblem = async(req,res) =>{
                 stdin:input,
                 expected_output:output
             }))
-           
             const submissionResults = await submitBatch(submission);
 
             const tokens = submissionResults.map((res)=>res.token);

@@ -16,32 +16,26 @@ dotenv.config();
 
 const app = express();
 app.use("/api-docs", swaggerUIPath.serve, swaggerUIPath.setup(swaggerjsonFilePath));
-// const allowedOrigins = [
-//   "http://localhost:5173",
-//   "https://initdsa.in",
-//   "https://www.initdsa.in",
-//   "https://init-dsa.vercel.app",
-// ];
- 
-app.use(cors());
-// app.use(
-//   cors({
-//     origin: function (origin, callback) {
-//       if (!origin || allowedOrigins.includes(origin)) {
-//         callback(null, true);
-//       } else {
-//         callback(new Error("Not allowed by CORS"));
-//       }
-//     },
-//     credentials: true,
-//     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-//   })
-// );
-// app.use((req, res, next)=>{
-//     res.header('Access-Control-Allow-Origin', '*');
-//     res.header('Access-Control-Allow-Methods', 'GET', 'POST', 'PUT', 'DELETE', 'OPTIONS');
-//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-// })
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://initdsa.in",
+  "https://www.initdsa.in",
+  "https://init-dsa.vercel.app",
+];
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  })
+);
+
 app.use(express.json());
 app.use(cookieParser());
 
