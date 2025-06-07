@@ -43,16 +43,15 @@ const ProblemPage = () => {
   }, [id]);
 
   useEffect(() => {
-    if (problem) {
-      setCode(problem.codeSnippets?.[selectedLanguage] || submission?.sourceCode || "");
-      setTestCases(
-        problem.testCases?.map((tc) => ({
-          input: tc.input,
-          output: tc.output,
-        })) || []
-      );
+    if (problem?.codeSnippets) {
+      console.log("javascript")
+      const defaultLang = problem.codeSnippets["JAVASCRIPT"]
+        ? "JAVASCRIPT"
+        : Object.keys(problem.codeSnippets)[0];
+      setSelectedLanguage(defaultLang);
+      setCode(problem.codeSnippets[defaultLang] || "");
     }
-  }, [problem, selectedLanguage]);
+  }, [problem]);
 
   useEffect(() => {
     if (activeTab === "submissions" && id) {
