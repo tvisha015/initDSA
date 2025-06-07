@@ -1,7 +1,7 @@
 import swaggerUIPath from "swagger-ui-express";
 import swaggerjsonFilePath from "./docs/swagger.json" with { type: "json" };
 
-import express from "express";
+import express, { request } from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -16,18 +16,31 @@ dotenv.config();
 
 const app = express();
 app.use("/api-docs", swaggerUIPath.serve, swaggerUIPath.setup(swaggerjsonFilePath));
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://initdsa.in",
-  "https://www.initdsa.in",
-  "https://init-dsa.vercel.app",
-];
-app.use(
-  cors({
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  })
-);
+// const allowedOrigins = [
+//   "http://localhost:5173",
+//   "https://initdsa.in",
+//   "https://www.initdsa.in",
+//   "https://init-dsa.vercel.app",
+// ];
+ 
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       if (!origin || allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error("Not allowed by CORS"));
+//       }
+//     },
+//     credentials: true,
+//     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+//   })
+// );
+app.use((req, res, next)=>{
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET', 'POST', 'PUT', 'DELETE', 'OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+})
 app.use(express.json());
 app.use(cookieParser());
 
