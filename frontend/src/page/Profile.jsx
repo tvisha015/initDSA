@@ -109,7 +109,7 @@ const Profile = () => {
           
         {/* <ProblemSolvedByUser/> */}
 
-        {/* <PlaylistProfile/> */}
+        <PlaylistProfile/>
       </div>
       
       {/* PLaylist created by the user and their actions */}
