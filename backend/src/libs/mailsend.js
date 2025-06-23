@@ -1,18 +1,22 @@
-import sgMail from '@sendgrid/mail';
+import dotenv from 'dotenv';
+import nodemailer from 'nodemailer';
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+dotenv.config();
 
-export const sendVerificationEmail = async (email, token) => {
-  const verificationLink = `${process.env.CLIENT_URL}/verify-email?token=${token}`;
-
-  const msg = {
-    to: email,
-    from: {
-      name : 'initDSA',
-      // email : 'tvisha.edu@gmail.com'
-      email : process.env.EMAIL_FROM
+const transporter = nodemailer.createTransport({  //vehicle for sending mail
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASSWORD,
     },
-    subject: 'Verify your email for initDSA',
+});
+const verificationLink = `${process.env.CLIENT_URL}/verify-email?token=${token}`;
+
+const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: process.env.EMAIL_USER,
+    subject: "Verify your email for initDSA", 
+    text: "Demo mail",
     html: `
     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; background-color: #f9fafb; color: #111827;">
         <div style="max-width: 600px; margin: auto; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden;">
@@ -44,15 +48,11 @@ export const sendVerificationEmail = async (email, token) => {
         </div>
     </div>
     `
-
-  };
-
-  await sgMail.send(msg).then(() => {
-    console.log("📧 Using from email:", process.env.EMAIL_FROM);
-    console.log("✅ Email sent to", email);
-  }).catch((error) => {
-    console.log("📧 Using from email:", process.env.EMAIL_FROM);
-    console.error("❌ SendGrid error:", error.response?.body || error);
-  });
 };
 
+transporter.sendMail(mailOptions, (error, info)=>{
+  if(error){
+    return console.log(`Error sending mail : ${error}`)
+  }
+  console.log("Email sent successfully", info.response)
+})
